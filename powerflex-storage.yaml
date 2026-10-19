@@ -1,0 +1,17 @@
+# How to retrieve the storage information from the powerflex storage required by the Dell Storage Operator
+
+## PowerFlex API Gateway
+
+From the PowerFlex Manager GUI:
+
+The API Gateway address is the same IP address or FQDN you use to access the PowerFlex Manager web interface in your browser (https://<PFxM-IP-or-FQDN>).
+Navigate to Settings > Network to view the configured Management Virtual IP (VIP) or node interface IP.
+
+## Powerflex MDM Address
+
+From PowerFlex Manager (PFxM Web UI)
+
+1. Open the PowerFlex Manager web interface.
+2. Navigate to Block > System or Infrastructure > Nodes.
+3. Look for the nodes assigned the MDM role.
+4. Click on the MDM cluster view to display the active Primary and Secondary data IPs.

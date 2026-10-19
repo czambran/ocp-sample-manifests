@@ -1,0 +1,46 @@
+# OpenShift Instructions and Sample Manifests
+
+The OpenShift documentation is great but it can be hard to find quickly examples of the different manifests required
+to do an OpenShift installation specially when doing one on baremetal and disconnected. 
+
+I will either link to other repos with manifests or I will provide a manifest and include a link to the documentation I pulled the snippet from wherever possible
+
+## Baremetal Installations
+
+1. Download the following binaries and install them in the correct host:
+  1. oc client
+  2. oc-mirror
+  3. mirror-registry
+2. Generate ImageSetConfig
+3. Mirror images to disk: `oc-mirror --v2 -c imageset-config.yaml file://./openshift-binaries/`
+4. Push mirrored images from disk to the registry: `oc-mirror --v2 -c imageset-config.yaml file://./openshift-binaries/ docker://REGISTRY_URL<target-registry-host>:<port>/<namespace>`
+5. Generate install-config.yaml
+6. Generate agent-config.yaml
+
+
+
+
+### Sample Templates
+
+[Example of agent and install configs for a 3-node baremetal cluster with a bond and internally managed Load Balancing](https://github.com/bstrauss84/openshift-install-configs/tree/main/installation-configs/baremetal/agent/disconnected-ha-intlb-static-bond-vlan)
+
+## Useful tools for disconnected install
+
+1. [oc-mirror GUI](https://github.com/openshift/mirror-gui): Great tool to create the ImageSetConfig manifest
+2. [Red Hat OpenShit Container Platform Update Graph](https://access.redhat.com/labs/ocpupgradegraph/update_path): Used to find out the exact z-stream version and the upgrade path between 2 OpenShift versions
+
+## Documentation
+
+1. [Mirroring an Image Set in a Fully Disconnected Environment](https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/disconnected_environments/about-installing-oc-mirror-v2#oc-mirror-workflows-fully-disconnected-v2_about-installing-oc-mirror-v2)
+2. [install-config and agent-config parameters] ([https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/installing_an_on-premise_cluster_with_the_agent-based_installer/installation-config-parameters-agent](https://docs.redhat.com/en/documentation/openshift_container_platform/4.22/html/installing_an_on-premise_cluster_with_the_agent-based_installer/installation-config-parameters-agent))
+3. [nmstate examples](https://nmstate.io/examples.html)
+
+## Storage CSI Drivers
+1. [Dell Container Storage Modules](https://www.dell.com/support/manuals/en-us/container-storage-modules/csm_administrator_guide/install-the-container-storage-modules-operator-using-openshift?guid=guid-f1a77208-325e-45a5-a4d6-4d4571957823&lang=en-us)
+  - [Examples of ContainerStorageModules](https://github.com/dell/csm-operator/tree/main/samples/v1.18.1/drivers/powerflex)
+
+
+## Other
+
+1. [Red Hat AI MaaS](https://rh-aiservices-bu.github.io/rhoai-maas-guide/modules/main/00-disconnected.html)
+
